@@ -1,7 +1,7 @@
 #-*coding:utf8
 from django.http import HttpResponse
 from django.shortcuts import render_to_response,render
-from blog.models import ProUser,Goods,Category,LineItem
+from blog.models import ProUser,Goods,Category
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
 from django import forms
@@ -82,7 +82,7 @@ def buy_goods(req):
 def order(req):
     goodlist = req.session.get("goodlist")
     if req.user.is_authenticated():
-        return render_to_response("order.html",{'user':req.user,'goodlist':goodlist})
+        return render(req,"order.html",{'user':req.user,'goodlist':goodlist})
 def pay(req):
     if req.user.is_authenticated():
         return render_to_response("pay.html",{'user':req.user})
@@ -91,7 +91,8 @@ def logout_user(req):
     logout(req)    
     return HttpResponse("亲,下次再见哦!")
 
-
+def contact(req):
+	return render_to_response('contact.html',{})
 
 
 

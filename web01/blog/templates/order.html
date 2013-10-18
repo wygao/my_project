@@ -12,9 +12,14 @@
     <script src="/static/bootstrap/js/jquery.js"></script>
     <style type="text/css">
       body {
+        position:relative;    
         margin:0 auto;
         padding-top: 60px;
         padding-bottom: 40px;
+		background:url(/static/images/bg5.jpg);
+        background-repeat:no-repeat;
+        background-size:100% 100%;
+        background-color:#FCC;
 		background-color:#FCC;
       }
       .sidebar-nav {
@@ -32,15 +37,14 @@
           padding-right: 5px;
         }
       }
-      body{
-        position:relative;    
-      }
 	  #main{
+		margin:0 auto;
 		position:relative;
 		width:1000px;
 		height:640px;
 		border:#F96 5px dotted;
-		margin:0 auto;
+		border-radius:25px;
+		box-shadow:8px 10px 8px 2px;
 	  }
 	  #main_top{
 		margin:5px auto;  
@@ -55,6 +59,12 @@
       #list_info{
         text-align:center;
         }
+	  #list_info{
+	  	width:1000px;
+		height:130px;
+		overflow-y:auto;
+		overflow-x:hidden;
+	  }
 	 
     </style>
 
@@ -70,14 +80,14 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#">爱尚品</a>
+          <a class="brand" href="/index/">爱尚茶</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
                 亲爱的{{user}}童鞋,好久不见哦!  
             </p>
             <ul class="nav">
-              <li><a href="#">首页</a></li>
-              <li ><a href="#about">开始订购</a></li>
+              <li><a href="/index/">首页</a></li>
+              <li ><a href="/index">开始订购</a></li>
               <li class="active"><a href="#contact">查询订单</a></li>
               <li><a href="#contact">手机客户端</a></li>
               <li><a href="#contact">帮助中心</a></li>
@@ -89,13 +99,13 @@
 
 	<div id="main">
     	<div id="main_top" >
-        	<span class="span4"><a class="btn btn-success">1 浏览商品订购</a></span>
+        	<span class="span4"><a class="btn btn-success" href="/index">1 浏览商品订购</a></span>
             <span class="span4"><a class="btn btn-info active">2 确认订购内容<i class="icon-map-marker"></i></a></span>
-            <span><a href="#" class="btn btn-success">3 结算并提交订单</a></span>
+            <span><a href="/pay" class="btn btn-success">3 结算并提交订单</a></span>
         </div><br />
         <div id="order_header">
         	<form>
-            	<table class="table table-condensed" id="list_info">
+            	<table class="table table-condensed" >
                 	<tr class="success">
                         <th></th>
                         <th>品名</th>
@@ -104,17 +114,21 @@
                         <th>优惠备注</th>
                         <th><a href="#">全部取消</a></th>
                     </tr>
-                        {%for item in goodlist %}
-                           <tr>
-                            <td></td>
-                            <td>{{item.goods_name}}</td>
-                            <td>{{item.goods_price}}</td>
-                            <td>{{item.goods_quantity}}</td>
-                            <td></td>
-                            <td><i class="icon-remove"></i></td>
-                           </tr>
-                        {% endfor %}
                 </table>
+				<div id="list_info">
+            		<table class="table table-condensed">
+                	    {%for item in goodlist %}
+                	       <tr>
+                	        <td></td>
+                	        <td>{{item.goods_name}}</td>
+                	        <td>{{item.goods_price}}</td>
+                	        <td>{{item.goods_quantity}}</td>
+                	        <td></td>
+                	        <td><i class="icon-remove"></i></td>
+                	       </tr>
+                	    {% endfor %}
+                	</table>
+				</div>
                 <div style="margin-left:10px;"><!-- 确认订购内容额外信息 start-->
                     <p><a>使用优惠代码？</a><span class="pull-right" style="margin-right:20px;">小  计 88元|外送费 ：8.0元</span></p>
                     <div style="margin-right:20px;" class="pull-right">

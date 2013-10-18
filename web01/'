@@ -73,9 +73,10 @@
       <link rel="shortcut icon" href="/static/bootstrap/img/glyphicons-halflings-white.png">
       <script src="/static/bootstrap/js/jquery.js"></script>
       <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+
       <script type="text/javascript">
          $(document).ready(function(){
-			 function contains(a,obj){
+             function contains(a,obj){
                  for(var i=0; i<a.length; i++){
                      if(a[i].goods_id == obj.goods_id)
                          return true;
@@ -94,7 +95,12 @@
                  var car = $("#shop_car");
                  car.text('');
                  for(var i=0; i<goodlist.length;i++){
-                    $(car).append("<tr><td>"+goodlist[i].goods_name+"</td><td><i class='icon-plus'></i>"+goodlist[i].goods_quantity+" <i class='icon-minus'></i></td><td>"+goodlist[i].goods_price+"</td><td><i class='icon-remove'></i></td></tr>");
+                    $(car).append("<tr class='item'>
+					<td>"+goodlist[i].goods_name+"</td>
+					<td><i class='icon-plus'></i> "+goodlist[i].goods_quantity+" <i class='icon-minus'></i></td>
+					<td>"+goodlist[i].goods_price+"</td>
+					<td><i class='icon-remove'></i></td>
+					</tr>");
                     }
              }   
 
@@ -102,11 +108,10 @@
              $(".thumbnail").children(".btn").click(function(){
                  var JSONObject = {
                  "goods_id": $(this).attr("goods_id"),
-                 "goods_name": $(this).siblings("h3").text(),
-                 "goods_price": $(this).siblings("h4").text(),
+                 "goods_name": $(this).siblings("h3").html(),
+                 "goods_price": $(this).siblings("h4").html(),
                  "goods_quantity": 1
                  };
-				 //alert(JSONObject)
                  if (contains(goodlist,JSONObject)){
                      Add_Quantity(goodlist,JSONObject);
                  }else{
@@ -114,7 +119,7 @@
                  }
                   $.post("/buy_goods/",{"goodlist":JSON.stringify(goodlist)});
                  disp_goods();
-             });
+             });    
           });
       </script>
   </head>
@@ -143,6 +148,10 @@
                         function regist(){
                             open("/regist/");    
                         }
+                        /*function toDisplay(){
+                            var modal = document.getElementById('myModal');
+                            modal.style.display='block';
+                        }*/
                     </script>
             </span>
             <ul class="nav">
@@ -160,11 +169,11 @@
         <form onsubmit="login(); return false;">{%csrf_token%}
         <table>
             <tr><td>用户名</td></tr>
-            <tr><td><input type="text" name="username" id="username"/></td></tr>
+            <tr><td><input type="text" name="username" id="username" /></td></tr>
             <tr><td>密码</td></tr>
             <tr><td><input type="password" name="password" id="password" /></td></tr>
         	<tr>
-				<td><button type="submit" class="btn" >登陆</button></td>
+				<td><button type="submit" class="btn">登陆</button></td>
 			</tr>
         	<tr>
         		<td><button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button></td>
@@ -221,7 +230,7 @@
                    <div class="thumbnail">
                        <img src="/static/{{goods.img}}" alt="img" />
                        <h3 goods_name="{{goods.name}}">{{goods.name}}</h3>
-                       <h4 goods_price="{{goods.price|floatformat:'2'}}">￥{{goods.price|floatformat:"2"}}</h4>
+                       <h4 goods_price="{{tea.price}}">￥{{goods.price|floatformat:"2"}}</h4>
                        <button goods_id="{{goods.id}}" class="btn" >加入购物车 &raquo;</button>
                    </div><!--/thumbnail-->
                </div><!--/span4-->
@@ -231,7 +240,7 @@
                  {%endif%}
             {%endfor%}
             </div>
-            </div><!--.span7-->
+            </div><!--.span8-->
          
 
       	  <div class="span3 ">
@@ -240,7 +249,7 @@
                     <table class="table table-condensed" style="text-align:center;">
                         <thead>
                             <tr >
-                                <th class="header">品名</th><th class="yellow header">数量</th><th class="header">价格</th><th class="header">取消</th>
+                                <th class="header">品名</th><th class="yellow header">数量</th><th>价格</th><th>取消</th>
                             </tr>
                         </thead>
                     </table>
@@ -260,7 +269,7 @@
 					</div>
                     <div id="order_footer">
                        <div></div>
-                       <div><b>合计：</b><label id="total"></label></div><br />            
+                       <div><b>合计：</b><label id="total">aaaaaaa</label></div><br />            
                        <button class="btn" onclick="ToOrder()">进入结算 &raquo</button><br />
                        <div style="margin-top:5px;">提醒：根据你最终提交订单时间，送达时间可能略有调整。</div> 
                     </div>
@@ -275,27 +284,32 @@
 						$(".icon-plus").click(function(){
 							var quantity = $(this).next(".quantity");
 							quantity.html((+quantity.html())+1);
-							//setTotal();
+							setTotal();
 						});
 						
 						$(".icon-minus").click(function(){
 							var quantity = $(this).prev(".quantity");
 							quantity.html(+quantity.html()-1);
-							//setTotal();
+							setTotal();
 						});
 			
 						function setTotal(){
-							var total = $("#total").text();
+							var total = $("#total");
 							/*var quantity = +$(".item").find(".quantity").html();*/
-							var quantity = $("#shop_car .item").find(".quantity").text();
+							var quantity = $("#shop_car .item");
 							aaa = +$(this).find(".quantity").html();
+							//alert(aaa);
 							var price = +$(".item").find(".price").html();
+							//alert(price);
 							total.html(price*quantity.toFixed(2));	
 						}
-						//setTotal();
+						setTotal();
 					});
                </script>
       </div><!--.row-fluid-->
+          
+        
+      
 
       <hr>
       <footer>

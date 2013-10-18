@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$','blog.views.index'),
+    url(r'^index/$','blog.views.index'),
     url(r'^regist/$','blog.views.regist_user'),
     url(r'^login/$','blog.views.login_user'),
     url(r'^type/$','blog.views.disp_goods'),
@@ -22,4 +23,5 @@ urlpatterns = patterns('',
     url(r'^logout/$','blog.views.logout_user'),
     url(r'^order/$','blog.views.order'),
     url(r'^pay/$','blog.views.pay'),
+	url(r'^contact/$','blog.views.contact'),
 )

@@ -2,14 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>爱尚品--你的加入，生活多一份美妙！</title>
+<title>爱尚茶--你的加入，生活多一份美妙！</title>
 	<style>
     	div,ul,li,a,body,table,tr,td{
-			margin:opx;	
+			margin:0;	
 		}
 		body{
+			position:absolute;
 			width:100%;
-			background-image:url(/static/images/tea7.jpg);
+			background-image:url(/static/images/bg1.jpg);
 			background-color:#F93;	
 			font-size:20px;
 			font-family:Georgia, "Times New Roman", Times, serif;
@@ -24,12 +25,14 @@
 			 text-decoration:none;
 		}
 		#main{
-			position:fixed;
+			position:relative;
 			margin:0 auto;
-			left:560px;
+			left:500px;
 			top:185px;
-			width:400px;
-			height:600px;
+			background:url(/static/images/bg2.jpg);
+			background-size:40% 100%;
+			background-repeat:no-repeat;
+			background-origin:content-box;
 		}
 		
 		
@@ -39,8 +42,8 @@
 
 <body>
 	<div id="header">
-		<a href="#" title="我的爱尚品（is通行证）" style="color:#999;">我的爱尚品（is通行证）</a> 
-       	<input type="button" value="登录" />   	
+		<a href="#" title="我的爱尚茶（is通行证）" style="color:#999;">我的爱尚茶（is通行证）</a> 
+       	<input type="button" value="登录" onclick="/index/"/>   	
     </div>
     <div id="main">
     	<form action="" method="post">{%csrf_token%}
